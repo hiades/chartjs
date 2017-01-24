@@ -36,6 +36,8 @@ export default {
 			data: this.data,
 			options: this.options
 		})
+
+		console.log('holas')
 	},
 
 	data () {
@@ -47,19 +49,32 @@ export default {
 	watch: {
 		type (val) {
 			this.$nextTick(() => {
-				// this.chart.data.datasets = val.datasets
-				// this.chart.data.labels = val.labels
-				this.chart.update()
+				this.chart.destroy()
+				this.chart = new Chart(this.$el, {
+					type: this.type,
+					data: this.data,
+					options: this.options
+				})
 			})
 		},
 		data (val) {
 			this.$nextTick(() => {
-				this.chart.update()
+				this.chart.destroy()
+				this.chart = new Chart(this.$el, {
+					type: this.type,
+					data: this.data,
+					options: this.options
+				})
 			})
 		},
 		options (val) {
 			this.$nextTick(() => {
-				this.chart.update()
+				this.chart.destroy()
+				this.chart = new Chart(this.$el, {
+					type: this.type,
+					data: this.data,
+					options: this.options
+				})
 			})
 		}
 	}
