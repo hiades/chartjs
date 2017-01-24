@@ -1,5 +1,5 @@
 <template>
-  <canvas class="chartjs" :width="width" :height="height"></canvas>
+	<canvas class="chartjs" :width="width" :height="height"></canvas>
 </template>
 
 <script>
@@ -9,55 +9,65 @@ const types = ['line', 'bar', 'radar', 'polarArea', 'pie', 'doughnut']
 
 export default {
 
-  props: {
-    width: Number,
-    height: Number,
-    type: {
-      type: String,
-      required: true,
-      validator (value) {
-        return types.indexOf(value) > -1
-      }
-    },
-    data: {
-      type: Object,
-      required: true,
-      default: () => ({})
-    },
-    options: {
-      type: Object,
-      default: () => ({})
-    }
-  },
+	props: {
+		width: Number,
+		height: Number,
+		type: {
+			type: String,
+			required: true,
+			validator (value) {
+				return types.indexOf(value) > -1
+			}
+		},
+		data: {
+			type: Object,
+			required: true,
+			default: () => ({})
+		},
+		options: {
+			type: Object,
+			default: () => ({})
+		}
+	},
 
-  mounted () {
-    this.chart = new Chart(this.$el, {
-      type: this.type,
-      data: this.data,
-      options: this.options
-    })
-  },
+	mounted () {
+		this.chart = new Chart(this.$el, {
+			type: this.type,
+			data: this.data,
+			options: this.options
+		})
+	},
 
-  data () {
-    return {
-      chart: null
-    }
-  },
+	data () {
+		return {
+			chart: null
+		}
+	},
 
-  watch: {
-    data (val) {
-      this.$nextTick(() => {
-        // this.chart.data.datasets = val.datasets
-        // this.chart.data.labels = val.labels
-        this.chart.update()
-      })
-    }
-  }
+	watch: {
+		type (val) {
+			this.$nextTick(() => {
+				// this.chart.data.datasets = val.datasets
+				// this.chart.data.labels = val.labels
+				this.chart.update()
+			})
+		},
+		data (val) {
+			this.$nextTick(() => {
+				this.chart.update()
+			})
+		},
+		options (val) {
+			this.$nextTick(() => {
+				this.chart.update()
+			})
+		}
+	}
 }
 </script>
 
 <style lang="scss">
 canvas.chartjs {
-  max-width: 100%;
+	max-width: 100%;
 }
 </style>
