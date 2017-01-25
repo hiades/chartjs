@@ -8,6 +8,7 @@ import Chart from 'chart.js' // With moment.js
 const types = ['line', 'bar', 'radar', 'polarArea', 'pie', 'doughnut']
 
 export default {
+
 	props: {
 		width: Number,
 		height: Number,
