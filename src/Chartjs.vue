@@ -8,7 +8,6 @@ import Chart from 'chart.js' // With moment.js
 const types = ['line', 'bar', 'radar', 'polarArea', 'pie', 'doughnut']
 
 export default {
-
 	props: {
 		width: Number,
 		height: Number,
@@ -36,46 +35,34 @@ export default {
 			data: this.data,
 			options: this.options
 		})
-
-		console.log('holas')
 	},
 
-	data () {
-		return {
-			chart: null
+	data () { return {
+		chart: null
+	}},
+
+	methods: {
+		resetChart() {
+			this.$nextTick(() => {
+				this.chart.destroy()
+				this.chart = new Chart(this.$el, {
+					type: this.type,
+					data: this.data,
+					options: this.options
+				})
+			})
 		}
 	},
 
 	watch: {
 		type (val) {
-			this.$nextTick(() => {
-				this.chart.destroy()
-				this.chart = new Chart(this.$el, {
-					type: this.type,
-					data: this.data,
-					options: this.options
-				})
-			})
+			this.resetChart()
 		},
 		data (val) {
-			this.$nextTick(() => {
-				this.chart.destroy()
-				this.chart = new Chart(this.$el, {
-					type: this.type,
-					data: this.data,
-					options: this.options
-				})
-			})
+			this.resetChart()
 		},
 		options (val) {
-			this.$nextTick(() => {
-				this.chart.destroy()
-				this.chart = new Chart(this.$el, {
-					type: this.type,
-					data: this.data,
-					options: this.options
-				})
-			})
+			this.resetChart()
 		}
 	}
 }
